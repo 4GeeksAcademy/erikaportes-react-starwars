@@ -5,7 +5,12 @@ import { GlobalContext } from "../context/GlobalContext";
 const Card = ({ item, type }) => {
     const { actions } = useContext(GlobalContext);
 
-    const img = `https://starwars-visualguide.com/assets/img/${type}/${item.uid}.jpg`;
+    const getImageType = (type) => {
+        if (type === "vehicles") return "vehicles";
+        return type;
+    };
+
+    const img = `https://starwars-visualguide.com/assets/img/${getImageType(type)}/${item.uid}.jpg`;
 
     return (
         <div className="card m-2" style={{ minWidth: "200px" }}>

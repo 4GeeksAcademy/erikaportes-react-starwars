@@ -8,15 +8,23 @@ export const Details = () => {
   useEffect(() => {
     fetch(`https://www.swapi.tech/api/${type}/${uid}`)
       .then(res => res.json())
-      .then(res => setData(res.result.properties));
+      .then(res => setData(res.result?.properties))
+      .catch(() => setData(null));
   }, [type, uid]);
 
-  if (!data) return <p>Loading...</p>;
+  if (!data) return <p className="text-white">Loading...</p>;
 
   return (
-    <div className="container">
+    <div className="container text-white">
       <h1>{data.name}</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+
+      <div className="card p-3 bg-dark">
+        {Object.entries(data).map(([key, value]) => (
+          <p key={key}>
+            <strong>{key}:</strong> {value}
+          </p>
+        ))}
+      </div>
     </div>
   );
 };
