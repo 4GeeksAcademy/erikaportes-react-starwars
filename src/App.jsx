@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Navbar } from "./components/Navbar";
+import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import { Details } from "./pages/Details";
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/details/:type/:uid" element={<Details />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/details/:type/:uid" element={<Details />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
