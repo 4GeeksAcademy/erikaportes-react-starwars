@@ -6,10 +6,10 @@ export const Home = () => {
   const { store, actions } = useContext(GlobalContext);
 
   useEffect(() => {
-    actions.fetchData("people", "people");
-    actions.fetchData("planets", "planets");
-    actions.fetchData("vehicles", "vehicles");
-  }, []);
+  actions.fetchData("people", "people");
+  actions.fetchData("planets", "planets");
+  actions.fetchData("vehicles", "vehicles");
+}, [actions]);
 
   return (
     <div className="container text-white">
