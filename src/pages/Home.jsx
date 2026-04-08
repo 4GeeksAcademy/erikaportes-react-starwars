@@ -1,16 +1,40 @@
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
-import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import { useContext, useEffect } from "react";
+import { GlobalContext } from "../context/GlobalContext";
+import Card from "../components/Card";
 
 export const Home = () => {
+	const { store, actions } = useContext(GlobalContext);
 
-  const {store, dispatch} =useGlobalReducer()
+	useEffect(() => {
+		actions.fetchData("people", "people");
+		actions.fetchData("planets", "planets");
+		actions.fetchData("vehicles", "vehicles");
+	}, []);
 
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
+		<div className="container">
+
+			<h2>Personajes</h2>
+			<div className="d-flex overflow-auto">
+				{store.people.map(item => (
+					<Card key={item.uid} item={item} type="people" />
+				))}
+			</div>
+
+			<h2>Planetas</h2>
+			<div className="d-flex overflow-auto">
+				{store.planets.map(item => (
+					<Card key={item.uid} item={item} type="planets" />
+				))}
+			</div>
+
+			<h2>Vehículos</h2>
+			<div className="d-flex overflow-auto">
+				{store.vehicles.map(item => (
+					<Card key={item.uid} item={item} type="vehicles" />
+				))}
+			</div>
+
 		</div>
 	);
-}; 
+};
