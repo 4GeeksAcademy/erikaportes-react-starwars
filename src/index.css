@@ -5,3 +5,68 @@
   opacity: 0;
   transition: 0.2s;
 }
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #222;
+}
+
+/* Fondo estilo Star Wars */
+body {
+  background-color: #000;
+  color: #ffe81f;
+}
+
+/* Dropdown animado */
+.dropdown-custom {
+  position: absolute;
+  top: 100%;       /* 🔥 CLAVE: lo manda hacia abajo */
+  right: 0;
+  margin-top: 8px; /* separación del botón */
+
+  width: 260px;
+  background: #111;
+  border: 1px solid #ffe81f;
+  border-radius: 8px;
+  padding: 10px;
+
+  z-index: 1000;
+}
+
+.dropdown-custom.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Items */
+.dropdown-item-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.dropdown-item-custom:hover {
+  background-color: #222;
+}
+
+/* Botón eliminar oculto */
+.btn-delete {
+  opacity: 0;
+  background: none;
+  border: none;
+  color: red;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+/* Aparece en hover */
+.dropdown-item-custom:hover .btn-delete {
+  opacity: 1;
+}

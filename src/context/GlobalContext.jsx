@@ -7,68 +7,66 @@ export const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
 
   const [store, setStore] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem("store")) || {
-        people: [],
-        planets: [],
-        vehicles: [],
-        favorites: []
-      };
-    } catch {
-      return {
-        people: [],
-        planets: [],
-        vehicles: [],
-        favorites: []
-      };
-    }
-  });
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-  const fetchData = async (endpoint, key) => {
-    setStore(prev => {
-      if (prev[key]?.length > 0) return prev;
-      return prev;
-    });
-
-    try {
-      const res = await fetch(`${BASE_URL}/${endpoint}`);
-      const data = await res.json();
-
-      if (!Array.isArray(data.results)) throw new Error("No results");
-
-      setStore(prev => ({
-        ...prev,
-        [key]: data.results
-      }));
-
-    } catch (err) {
-      console.error(`Error fetching ${endpoint}:`, err);
-    }
+  return {
+    people: [],
+    planets: [],
+    vehicles: [],
+    favorites
   };
+});
 
   const addFavorite = (item, type) => {
     setStore(prev => {
-      if (prev.favorites.some(f => f.uid === item.uid)) return prev;
+      const exists = prev.favorites.some(
+        f => f.uid === item.uid && f.type === type
+      );
+
+      if (exists) return prev;
 
       return {
         ...prev,
-        favorites: [...prev.favorites, { ...item, type }]
+        favorites: [
+          ...prev.favorites,
+          {
+            uid: item.uid,
+            name: item.name,
+            type: type
+          }
+        ]
       };
     });
   };
 
   const removeFavorite = (uid, type) => {
-  setStore(prev => ({
-    ...prev,
-    favorites: prev.favorites.filter(
-      fav => !(fav.uid === uid && fav.type === type)
-    )
-  }));
-};
+    setStore(prev => ({
+      ...prev,
+      favorites: prev.favorites.filter(
+        fav => !(fav.uid === uid && fav.type === type)
+      )
+    }));
+  };
+
+  const fetchData = async (endpoint, key) => {
+    try {
+      const res = await fetch(`${BASE_URL}/${endpoint}`);
+      const data = await res.json();
+
+      if (!Array.isArray(data.results)) return;
+
+      setStore(prev => ({
+        ...prev,
+        [key]: data.results
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
-    localStorage.setItem("store", JSON.stringify(store));
-  }, [store]);
+    localStorage.setItem("favorites", JSON.stringify(store.favorites));
+  }, [store.favorites]);
 
   return (
     <GlobalContext.Provider
@@ -81,3 +79,17 @@ export const GlobalProvider = ({ children }) => {
     </GlobalContext.Provider>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+

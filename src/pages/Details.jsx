@@ -17,10 +17,11 @@ export const Details = () => {
   }
 
   return (
+    
     <div className="container text-white">
       <h1>{data.name}</h1>
 
-      <div className="card p-3 bg-dark">
+      <div className="card p-3 bg-dark text-white">
         {Object.entries(data).map(([key, value]) => (
           <p key={key}>
             <strong>{key}:</strong> {value}

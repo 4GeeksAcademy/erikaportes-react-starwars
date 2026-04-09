@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 
 const Card = ({ item, type }) => {
-    const { actions } = useContext(GlobalContext);
+    const { store, actions } = useContext(GlobalContext);
+    const isFavorite = store.favorites.some(f => f.uid === item.uid && f.type === type);
 
-    // ✅ Imagen única por item (NO cambia al recargar)
     const img = `https://picsum.photos/seed/${type}-${item.uid}/300/200`;
 
     return (
@@ -31,11 +31,17 @@ const Card = ({ item, type }) => {
                 </Link>
 
                 <button
-                    className="btn btn-outline-warning btn-sm ms-2"
-                    onClick={() => actions.addFavorite({ ...item, type })}
+                    className={`btn btn-sm ms-2 ${isFavorite ? "btn-danger" : "btn-outline-warning"
+                        }`}
+                    onClick={() =>
+                        isFavorite
+                            ? actions.removeFavorite(item.uid, type)
+                            : actions.addFavorite(item, type)
+                    }
                 >
-                    ❤️
+                    {isFavorite ? "💔" : "💛"}
                 </button>
+
             </div>
         </div>
     );
