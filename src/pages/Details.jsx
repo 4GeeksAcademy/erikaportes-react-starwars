@@ -12,7 +12,9 @@ export const Details = () => {
       .catch(() => setData(null));
   }, [type, uid]);
 
-  if (!data) return <p className="text-white">Loading...</p>;
+  if (!data) {
+    return <p className="text-white">Loading...</p>;
+  }
 
   return (
     <div className="container text-white">

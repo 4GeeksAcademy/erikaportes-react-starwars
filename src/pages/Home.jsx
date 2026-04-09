@@ -6,33 +6,37 @@ export const Home = () => {
   const { store, actions } = useContext(GlobalContext);
 
   useEffect(() => {
-  actions.fetchData("people", "people");
-  actions.fetchData("planets", "planets");
-  actions.fetchData("vehicles", "vehicles");
-}, [actions]);
+    actions.fetchData("people", "people");
+    actions.fetchData("planets", "planets");
+    actions.fetchData("vehicles", "vehicles");
+  }, []);
+
+  const renderList = (list, type) => {
+    if (!Array.isArray(list) || list.length === 0) {
+      return <p className="text-white">Loading...</p>;
+    }
+
+    return list.map(item => (
+      <Card key={item.uid} item={item} type={type} />
+    ));
+  };
 
   return (
     <div className="container text-white">
 
       <h2>Personajes</h2>
       <div className="d-flex overflow-auto">
-        {store.people.map(item => (
-          <Card key={item.uid} item={item} type="people" />
-        ))}
+        {renderList(store.people, "people")}
       </div>
 
       <h2>Planetas</h2>
       <div className="d-flex overflow-auto">
-        {store.planets.map(item => (
-          <Card key={item.uid} item={item} type="planets" />
-        ))}
+        {renderList(store.planets, "planets")}
       </div>
 
       <h2>Vehículos</h2>
       <div className="d-flex overflow-auto">
-        {store.vehicles.map(item => (
-          <Card key={item.uid} item={item} type="vehicles" />
-        ))}
+        {renderList(store.vehicles, "vehicles")}
       </div>
 
     </div>

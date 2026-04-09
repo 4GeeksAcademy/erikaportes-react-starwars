@@ -5,31 +5,34 @@ import { GlobalContext } from "../context/GlobalContext";
 const Card = ({ item, type }) => {
     const { actions } = useContext(GlobalContext);
 
-    const getImageType = (type) => {
-        if (type === "vehicles") return "vehicles";
-        return type;
-    };
-
-    const img = `https://starwars-visualguide.com/assets/img/${getImageType(type)}/${item.uid}.jpg`;
+    // ✅ Imagen única por item (NO cambia al recargar)
+    const img = `https://picsum.photos/seed/${type}-${item.uid}/300/200`;
 
     return (
         <div className="card m-2" style={{ minWidth: "200px" }}>
             <img
                 src={img}
                 className="card-img-top"
-                onError={(e) => e.target.src = "https://via.placeholder.com/200"}
+                alt={item.name}
+                onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://picsum.photos/300/200";
+                }}
             />
 
             <div className="card-body">
                 <h5>{item.name}</h5>
 
-                <Link to={`/details/${type}/${item.uid}`} className="btn btn-primary btn-sm">
+                <Link
+                    to={`/details/${type}/${item.uid}`}
+                    className="btn btn-primary btn-sm"
+                >
                     Ver más
                 </Link>
 
                 <button
                     className="btn btn-outline-warning btn-sm ms-2"
-                    onClick={() => actions.addFavorite(item)}
+                    onClick={() => actions.addFavorite({ ...item, type })}
                 >
                     ❤️
                 </button>

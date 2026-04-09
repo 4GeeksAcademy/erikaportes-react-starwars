@@ -1,0 +1,7 @@
+.dropdown-item:hover .delete-btn {
+  opacity: 1;
+}
+.delete-btn {
+  opacity: 0;
+  transition: 0.2s;
+}
