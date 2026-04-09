@@ -18,10 +18,10 @@ const SearchBar = () => {
   );
 
   return (
-    <div className="position-relative w-25">
+    <div className="position-relative w-75">
       <input
         className="form-control"
-        placeholder="Buscar..."
+        placeholder="Buscar"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />

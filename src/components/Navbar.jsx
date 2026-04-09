@@ -27,7 +27,7 @@ export const Navbar = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="position-relative d-flex align-items-center">
+        <div className="position-relative flex-column d-flex align-items-center">
           <button
             className="btn btn-outline-warning d-flex align-items-center gap-2"
             onClick={() => setOpen(!open)}
@@ -41,7 +41,7 @@ export const Navbar = () => {
 
           <div className={`dropdown-custom ${open ? "show" : ""}`}>
             {favorites.length === 0 ? (
-              <div className="empty">No hay favoritos</div>
+              <div className="empty text-white">Agrega favoritos</div>
             ) : (
               favorites.map((fav) => (
                 <div

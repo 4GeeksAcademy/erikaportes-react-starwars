@@ -16,17 +16,32 @@ export const Details = () => {
     return <p className="text-white">Loading...</p>;
   }
 
+  const img = `https://picsum.photos/seed/${type}-${uid}/600/400`;
+  const fallback = `https://picsum.photos/seed/fallback-${type}-${uid}/600/400`;
+
   return (
-    
     <div className="container text-white">
-      <h1>{data.name}</h1>
+      <h1 className="mb-3">{data.name}</h1>
 
       <div className="card p-3 bg-dark text-white">
+
+        <img
+          src={img}
+          alt={data.name}
+          className="img-fluid mb-3"
+          style={{ width: "100%", maxHeight: "400px", objectFit: "cover" }}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = fallback;
+          }}
+        />
+
         {Object.entries(data).map(([key, value]) => (
           <p key={key}>
             <strong>{key}:</strong> {value}
           </p>
         ))}
+
       </div>
     </div>
   );

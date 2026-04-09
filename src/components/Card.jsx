@@ -9,7 +9,7 @@ const Card = ({ item, type }) => {
     const img = `https://picsum.photos/seed/${type}-${item.uid}/300/200`;
 
     return (
-        <div className="card m-2" style={{ minWidth: "200px" }}>
+        <div className="card m-2" style={{ minWidth: "300px" }}>
             <img
                 src={img}
                 className="card-img-top"
@@ -20,29 +20,33 @@ const Card = ({ item, type }) => {
                 }}
             />
 
-            <div className="card-body">
+            <div className="card-body d-flex flex-column justify-content-between">
                 <h5>{item.name}</h5>
 
-                <Link
-                    to={`/details/${type}/${item.uid}`}
-                    className="btn btn-primary btn-sm"
-                >
-                    Ver más
-                </Link>
+                <div className="d-flex justify-content-between align-items-center mt-2">
+                    <Link
+                        to={`/details/${type}/${item.uid}`}
+                        className="btn btn-primary btn-sm px-5"
+                    >
+                        Ver más
+                    </Link>
 
-                <button
-                    className={`btn btn-sm ms-2 ${isFavorite ? "btn-danger" : "btn-outline-warning"
-                        }`}
-                    onClick={() =>
-                        isFavorite
-                            ? actions.removeFavorite(item.uid, type)
-                            : actions.addFavorite(item, type)
-                    }
-                >
-                    {isFavorite ? "💔" : "💛"}
-                </button>
+                    <button
+                        className={`btn btn-sm ${isFavorite ? "btn-danger" : "btn-outline-warning"
+                            }`}
+                        onClick={() =>
+                            isFavorite
+                                ? actions.removeFavorite(item.uid, type)
+                                : actions.addFavorite(item, type)
+                        }
+                    >
+                        {isFavorite ? "💔" : "💛"}
+                    </button>
+
+                </div>
 
             </div>
+
         </div>
     );
 };

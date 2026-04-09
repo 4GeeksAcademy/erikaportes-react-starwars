@@ -70,3 +70,9 @@ body {
 .dropdown-item-custom:hover .btn-delete {
   opacity: 1;
 }
+
+img {
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+}
